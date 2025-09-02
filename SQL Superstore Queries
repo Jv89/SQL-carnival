@@ -1,0 +1,123 @@
+
+1 How many distinct customers made purchases in the dataset?
+
+Querie
+
+SELECT COUNT(DISTINCT Customer_Name) AS Purchase
+FROM superstore;
+
+Outcome 
+
+The number of distinct customers who made purchases in the Superstore dataset is: 793
+
+-----------------------------------------------------
+
+Show the total number of orders and the total quantity of items sold for each ship mode.
+
+Querie
+
+SELECT "Ship Mode", COUNT(DISTINCT "Order ID") AS total_orders, SUM("Quantity") AS total_quantity
+FROM superstore
+GROUP BY "Ship Mode"
+ORDER BY "Ship Mode";
+
+
+Outcome
+
+Ship Mode	      Total Orders	Total Quantity
+First Class	     787		      5,693
+Same Day	       264		      1,960
+Second Class	   964		      7,423
+Standard Class	 2,994		    22,797
+---------------------------------------------------
+
+Show the average profit per order for each region, rounded to 2 decimal places.
+
+Querie
+
+SELECT Region, ROUND(AVG(Profit), 2) AS avg_profit
+FROM superstore
+GROUP BY Region
+ORDER BY Region
+
+Outcome 
+
+Region	  Average Profit
+Central	  $17.09
+East	    $32.14
+South	    $28.86
+West	    $33.85
+--------------------------------------------------
+Show the total sales and total profit for each category, but only include categories where the total sales are greater than 500,000.
+
+Querie
+
+SELECT Category, SUM(Sales) AS total_sales, SUM(Profit) AS total_profit
+FROM superstore 
+GROUP BY Category 
+HAVING SUM(Sales) > 500000
+ORDER BY Category;
+
+Outcome 
+
+Category	      Total Sales	        Total Profit
+Furniture	      $741,999.80	        $18,451.27
+Office Supplies	$719,047.03	        $122,490.80
+Technology	    $836,154.03	        $145,454.95
+
+----------------------------------------------
+Find the number of distinct products sold in the Technology category in the West region, and show the total quantity sold for those products.
+
+
+SELECT COUNT(DISTINCT "Product Name") AS total_products, SUM(Quantity) AS total_quantity
+FROM superstore
+WHERE Category = 'Technology' AND Region = 'West';
+
+Outcome 
+Total distinct products sold in the Technology category in the West region: 307
+Total quantity of those products sold: 2,335
+
+------------------------------------------------
+
+Show the average discount and total sales for orders that meet either of these conditions:
+
+The segment is 'Consumer'
+The region is 'South'
+
+Querie
+
+SELECT Segment, Region, ROUND(AVG(Discount), 2) AS avg_discount, SUM(Sales) AS sum_sales
+FROM superstore
+WHERE Region = 'South' OR Segment = 'Consumer'
+GROUP BY Segment, Region 
+ORDER BY Segment, Region;
+
+-------------------------------------------------
+
+Write a query that shows the total sales (Sales) and total profit (Profit) for each product category (Category).
+
+Querie
+
+SELECT Category, SUM(Sales) AS sum_sales, SUM(Profit) 
+FROM superstore
+GROUP BY, Category
+ORDER BY sum_sales DESC;
+
+--------------------------------------------------
+
+Write a query that returns the number of unique cities (City) in the dataset for each region (Region).
+Sort the results by the number of cities in descending order.
+
+Querie
+
+SELECT Region, COUNT(DISTINCT City) AS city_count
+FROM superstore
+GROUP BY Region
+ORDER BY city_count DESC;
+
+Outcome 
+Region	    Unique City Count
+Central	    181
+West	      169
+South	      125
+East	      108
