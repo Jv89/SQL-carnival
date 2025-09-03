@@ -1,0 +1,86 @@
+SELECT and Filtering
+-----------------------------------------------
+- Select all records from the database 
+
+SELECT * 
+FROM loan
+
+- Show only the person_age and person_income columns 
+
+SELECT person_age, person_income 
+FROM loan
+
+- Find the loans where the loan_status = 1 (default)
+
+SELECT loan_status
+FROM loan
+WHERE loan_status = 1 
+
+- Retrieve all customers who own their home 
+
+SELECT person_home_ownership
+FROM loan 
+WHERE person_home_ownership = 'OWN'
+
+- Get all the loans with an amount grater than 10,000
+SELECT loan_amnt
+FROM loans
+WHERE loan_amnt > 10000
+
+- Find customers younger than 25 years old 
+SELECT person_age 
+FROM loan 
+WHERE person_age < 25
+
+- Retrieve all loans with an loan_int_rate is lower than 10%
+SELECT loan_int_rate
+FROM loan
+WHERE loan_int_rate < 10
+
+- Get the distinct values of loan_intent
+SELECT DISTINCT(loan_intent) AS Intent 
+FROM loan
+
+- Show all loan where person_income < 20000
+SELECT person_income 
+FROM loan
+WHERE person_income < 20000
+
+Aggregations
+---------------------------------------------
+
+- Count how many total records are in the dataset 
+SELECT COUNT(*) AS total_count
+FROM loan
+
+- Find the average loan amount
+SELECT AVG(loan_amnt) AS avg_loan
+FROM loan
+
+- Calculate the maximum and minimum interest rate 
+SELECT MAX(loan_int_rate) as Max_int, MIN(loan_int_rate) as Min_int
+FROM loan
+
+- Count how many people defaulted
+SELECT COUNT (loan_status) AS status
+FROM loan
+WHERE loan_status = 1;
+
+- Find the average income of people who defaulted 
+SELECT AVG(person_income) AS avg_income_defaulted
+FROM loan
+WHERE loan_status = 1;
+
+- Calculate the average age of all customer 
+SELECT AVG(person_age) AS avg_age
+FROM loan
+
+- Find the sum of all loan amounts in the dataset 
+SELECT SUM(loan_amnt) AS total_amount_loan
+FROM loan
+
+- Find the average loan interest rate for each loan_intent
+SELECT AVG(loan_int_rate) AS avg_int_rate, loan_intent
+FROM loan
+GROUP BY loan_intent
+ORDER BY loan_intent;
